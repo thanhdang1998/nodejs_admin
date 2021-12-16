@@ -4,9 +4,24 @@ import { Request, Response } from 'express';
 
 export const GetListProduct = async (req: Request, res: Response) => {
     try {
-        const repository = getManager().getRepository(product)
-        const products = await repository.find();
-        res.send(products); 
+        const take = 5;
+        const page = parseInt(req.query.page as string || '1');
+
+        const repository = getManager().getRepository(product);
+
+        const [data, total] = await repository.findAndCount({
+            take,
+            skip: (page - 1) * take
+        });
+        
+        res.send({
+            data,
+            meta: {
+                total,
+                page,
+                last_page: Math.ceil(total / take)
+            }
+        }); 
     } catch (error) {
         res.send({
             message: "try again"

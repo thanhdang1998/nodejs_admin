@@ -1,3 +1,5 @@
+import { GetListOrder } from './controller/OrderController';
+import { UploadImage } from './controller/ImageController';
 import { GetListProduct, GetDetailProduct, CreateProduct, UpdateProduct, DeleteProduct } from './controller/ProductController';
 import { GetListRole, GetDetailRole, CreateRole, UpdateRole, DeleteRole } from './controller/RoleController';
 import { GetListUser, GetDetailUser, CreateUser, UpdateUser, DeleteUser } from './controller/UserController';
@@ -33,4 +35,11 @@ export const routes = (router: Router) => {
     router.post('/api/product/create', AuthMiddlewave, CreateProduct);
     router.put('/api/product/update/:id', AuthMiddlewave, UpdateProduct);
     router.delete('/api/product/delete/:id', AuthMiddlewave, DeleteProduct);
+
+    //upload image
+    router.post('/api/upload', AuthMiddlewave, UploadImage);
+    //router.use('/api/uploads', express.static('./uploads'));
+
+    //manage order
+    router.get('/api/order/getList', AuthMiddlewave, GetListOrder);
 }

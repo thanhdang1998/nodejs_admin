@@ -18,7 +18,7 @@ export const GetDetailRole = async (req: Request, res: Response) => {
     try {
         const repository = getManager().getRepository(Role);
         const role = await repository.findOne(req.params.id, {
-            relations: ['permission']
+            relations: ['order_items']
         });
         res.send(role);
     } catch (error) {
