@@ -17,7 +17,7 @@ export const AuthMiddlewave = async (req: Request, res: Response, next: Function
 
         const repository = getManager().getRepository(User);
 
-        req["user"] = await repository.findOne(payload.id);
+        req["user"] = await repository.findOne(payload.id, {relations: ['role', 'role.permission']});
         
         next();
     } catch (error) {

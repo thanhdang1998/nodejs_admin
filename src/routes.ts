@@ -1,4 +1,5 @@
-import { GetListOrder } from './controller/OrderController';
+import { PermissionMiddlewave } from './middleware/PermissionMiddlewave';
+import { Chart, Export, GetListOrder } from './controller/OrderController';
 import { UploadImage } from './controller/ImageController';
 import { GetListProduct, GetDetailProduct, CreateProduct, UpdateProduct, DeleteProduct } from './controller/ProductController';
 import { GetListRole, GetDetailRole, CreateRole, UpdateRole, DeleteRole } from './controller/RoleController';
@@ -30,11 +31,11 @@ export const routes = (router: Router) => {
     router.delete('/api/role/delete/:id', AuthMiddlewave, DeleteRole);
 
     //manage product
-    router.get('/api/product/getList', AuthMiddlewave, GetListProduct);
-    router.get('/api/product/getDetail/:id', AuthMiddlewave, GetDetailProduct);
-    router.post('/api/product/create', AuthMiddlewave, CreateProduct);
-    router.put('/api/product/update/:id', AuthMiddlewave, UpdateProduct);
-    router.delete('/api/product/delete/:id', AuthMiddlewave, DeleteProduct);
+    router.get('/api/product/getList', AuthMiddlewave, PermissionMiddlewave('product'), GetListProduct);
+    router.get('/api/product/getDetail/:id', AuthMiddlewave, PermissionMiddlewave('product'), GetDetailProduct);
+    router.post('/api/product/create', AuthMiddlewave, PermissionMiddlewave('product'), CreateProduct);
+    router.put('/api/product/update/:id', AuthMiddlewave, PermissionMiddlewave('product'), UpdateProduct);
+    router.delete('/api/product/delete/:id', AuthMiddlewave, PermissionMiddlewave('product'), DeleteProduct);
 
     //upload image
     router.post('/api/upload', AuthMiddlewave, UploadImage);
@@ -42,4 +43,6 @@ export const routes = (router: Router) => {
 
     //manage order
     router.get('/api/order/getList', AuthMiddlewave, GetListOrder);
+    router.post ('/api/order/export', AuthMiddlewave, Export);
+    router.get('/api/order/chart', AuthMiddlewave, Chart);
 }
