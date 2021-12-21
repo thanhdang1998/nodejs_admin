@@ -1,6 +1,6 @@
+import { verify } from 'jsonwebtoken';
 import { User } from './../entity/UserEntity';
 import { getManager } from 'typeorm';
-import { verify } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
 export const AuthMiddlewave = async (req: Request, res: Response, next: Function) => {
