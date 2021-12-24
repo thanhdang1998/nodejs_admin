@@ -7,6 +7,7 @@ import { GetListUser, GetDetailUser, CreateUser, UpdateUser, DeleteUser } from '
 import { AuthMiddlewave } from './middleware/AuthMiddlewave';
 import { Router } from "express";
 import { AuthenticatedUser, Login, Logout, Register, UpdateInfo, UpdatePassword } from "./controller/AuthController";
+import { GetListPermission } from './controller/PermissionController';
 
 export const routes = (router: Router) => {
     router.post('/api/register', Register);
@@ -22,6 +23,9 @@ export const routes = (router: Router) => {
     router.post('/api/user/create', AuthMiddlewave, CreateUser);
     router.put('/api/user/update/:id', AuthMiddlewave, UpdateUser);
     router.delete('/api/user/delete/:id', AuthMiddlewave, DeleteUser);
+
+    //manage permission
+    router.get('/api/permission/getList', AuthMiddlewave, GetListPermission);
 
     //manage role
     router.get('/api/role/getList', AuthMiddlewave, GetListRole);

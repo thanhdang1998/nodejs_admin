@@ -18,7 +18,7 @@ export const GetDetailRole = async (req: Request, res: Response) => {
     try {
         const repository = getManager().getRepository(Role);
         const role = await repository.findOne(req.params.id, {
-            relations: ['order_items']
+            relations: ['permission']
         });
         res.send(role);
     } catch (error) {
@@ -31,6 +31,7 @@ export const GetDetailRole = async (req: Request, res: Response) => {
 export const CreateRole = async (req: Request, res: Response) => {
     try {
         const {name, permissions} = req.body;
+        
         const repository = getManager().getRepository(Role);
         
         const role = await repository.save({

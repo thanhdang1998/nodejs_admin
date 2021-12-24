@@ -60,7 +60,7 @@ export const Login = async (req: Request, res: Response) => {
 
         res.cookie('jwt', token, {
             httpOnly: true,
-            maxAge: 24 * 60 * 1000
+            maxAge: 24 * 60 * 1000 * 1000
         })
 
         res.send({
